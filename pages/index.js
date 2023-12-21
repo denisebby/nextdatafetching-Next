@@ -53,6 +53,11 @@ const Home = (props) => {
         </header>
         <div className="home-descriptionc">
           <h1 className="home-text02">A NextJS Data Fetching Guide</h1>
+          <svg viewBox="0 0 1024 1024" className="home-icon4">
+            <path d="M0 192l320-128v768l-320 128z"></path>
+            <path d="M384 32l320 192v736l-320-160z"></path>
+            <path d="M768 224l256-192v768l-256 192z"></path>
+          </svg>
           <span className="home-text03">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -151,6 +156,7 @@ const Home = (props) => {
           .home-navbar-interactive {
             width: 100%;
             display: flex;
+            z-index: 2;
             position: relative;
             box-shadow: 5px 5px 10px 0px #d4d4d4;
             align-items: center;
@@ -274,6 +280,7 @@ const Home = (props) => {
             width: 100%;
             height: auto;
             display: flex;
+            position: relative;
             align-items: flex-start;
             padding-top: var(--dl-space-space-twounits);
             padding-left: var(--dl-space-space-twounits);
@@ -284,8 +291,15 @@ const Home = (props) => {
           }
           .home-text02 {
             color: var(--dl-color-primary-300);
+            z-index: 1;
+          }
+          .home-icon4 {
+            fill: var(--dl-color-primary-100);
+            width: auto;
+            height: 33px;
           }
           .home-text03 {
+            z-index: 1;
             margin-top: var(--dl-space-space-oneandhalfunits);
           }
           .home-example1c {
@@ -568,6 +582,9 @@ const Home = (props) => {
             }
             .home-text01 {
               font-size: 14px;
+            }
+            .home-text02 {
+              color: var(--dl-color-primary-300);
             }
             .home-footer {
               padding: var(--dl-space-space-unit);
