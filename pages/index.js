@@ -1,7 +1,32 @@
 import React from 'react'
 import Head from 'next/head'
 
+import DataDisplay from './ui/server_fetch/ServerFetch'; // Import your display component
+
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch('https://randomuser.me/api/?results=10');
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const data = await res.json();
+
+    // Generating a timestamp in Eastern Time
+    const easternTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+
+    return { props: { data, timestamp: easternTime } };
+  } catch (error) {
+    // Handle errors as needed, possibly passing an error message in props
+    return { props: { error: error.message } };
+  }
+}
+
+
 const Home = (props) => {
+  // console.log(props)
   return (
     <>
       <div className="home-container">
@@ -82,13 +107,23 @@ const Home = (props) => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                nisi ut aliquip ex ea commodo consequat. 
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                
+                Duis aute irure dolor
                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat
                 nulla pariatur. Excepteur sint occaecat cupidatat non proident,
                 sunt in culpa qui officia deserunt mollit anim id est laborum
               </span>
             </div>
-            <div className="home-container06"></div>
+            <div className="home-container06">
+              <DataDisplay data={props.data} timestamp={props.timestamp} id_name={"hist1"}/>
+              <DataDisplay data={props.data} timestamp={props.timestamp} id_name={"hist2"}/>
+              <DataDisplay data={props.data} timestamp={props.timestamp} id_name={"hist3"}/>
+            </div>
           </div>
         </div>
         <div className="home-example2c">
@@ -347,6 +382,7 @@ const Home = (props) => {
             margin-right: 0px;
             margin-bottom: var(--dl-space-space-twounits);
             justify-content: flex-start;
+            // height: 1000px;
           }
           .home-container03 {
             flex: 0 0 auto;
@@ -386,14 +422,15 @@ const Home = (props) => {
             padding-right: var(--dl-space-space-unit);
             padding-bottom: var(--dl-space-space-halfunit);
           }
+
           .home-container06 {
             flex: 0 0 auto;
             width: 100%;
-            border: 2px dashed rgba(120, 120, 120, 0.4);
             height: 75%;
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
           }
+
           .home-example2c {
             flex: 0 0 auto;
             width: 100%;
