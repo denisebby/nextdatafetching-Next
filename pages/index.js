@@ -73,6 +73,9 @@ const Home = (props) => {
             <span className="home-text04 Heading">1</span>
           </div>
           <div className="home-container04">
+            <h1 className="home-text05 Subheading">
+              On the Server, with Fetch
+            </h1>
             <div className="home-container05">
               <span>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -89,6 +92,9 @@ const Home = (props) => {
         </div>
         <div className="home-example2c">
           <div className="home-container07">
+            <h1 className="home-text07 Subheading">
+              On the Server, with 3rd party libraries
+            </h1>
             <div className="home-container08">
               <span>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -103,14 +109,17 @@ const Home = (props) => {
             <div className="home-container09"></div>
           </div>
           <div className="home-container10">
-            <span className="home-text07 Heading">2</span>
+            <span className="home-text09 Heading">2</span>
           </div>
         </div>
         <div className="home-example3c">
           <div className="home-container11">
-            <span className="home-text08 Heading">3</span>
+            <span className="home-text10 Heading">3</span>
           </div>
           <div className="home-container12">
+            <h1 className="home-text11 Subheading">
+              On the Client,via Route Handler
+            </h1>
             <div className="home-container13">
               <span>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -125,21 +134,43 @@ const Home = (props) => {
             <div className="home-container14"></div>
           </div>
         </div>
-        <footer className="home-footer">
+        <div className="home-example4c">
           <div className="home-container15">
+            <h1 className="home-text13 Subheading">
+              On the Client, with 3rd party libraries
+            </h1>
             <div className="home-container16">
+              <span>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum
+              </span>
+            </div>
+            <div className="home-container17"></div>
+          </div>
+          <div className="home-container18">
+            <span className="home-text15 Heading">4</span>
+          </div>
+        </div>
+        <footer className="home-footer">
+          <div className="home-container19">
+            <div className="home-container20">
               <img
                 alt="image"
                 src="/external/icons8-dog-park-100-1500h.png"
                 className="home-image2"
               />
-              <h1 className="home-text10">Next So Fetch</h1>
+              <h1 className="home-text16">Next So Fetch</h1>
             </div>
-            <span className="home-text11">
+            <span className="home-text17">
               Icon from https://icons8.com/icons
             </span>
           </div>
-          <span className="home-text12">by Denis Ebby</span>
+          <span className="home-text18">by Denis Ebby</span>
         </footer>
       </div>
       <style jsx>
@@ -336,6 +367,13 @@ const Home = (props) => {
             align-items: flex-start;
             flex-direction: column;
           }
+          .home-text05 {
+            color: var(--dl-color-primary-300);
+            margin-top: 0px;
+            margin-left: var(--dl-space-space-halfunit);
+            margin-right: var(--dl-space-space-halfunit);
+            margin-bottom: 0px;
+          }
           .home-container05 {
             flex: 0 0 auto;
             width: 100%;
@@ -374,6 +412,14 @@ const Home = (props) => {
             align-items: flex-start;
             flex-direction: column;
           }
+          .home-text07 {
+            color: var(--dl-color-primary-300);
+            align-self: flex-end;
+            margin-top: 0px;
+            margin-left: var(--dl-space-space-halfunit);
+            margin-right: var(--dl-space-space-halfunit);
+            margin-bottom: 0px;
+          }
           .home-container08 {
             flex: 0 0 auto;
             width: 100%;
@@ -402,7 +448,7 @@ const Home = (props) => {
             flex-direction: row;
             justify-content: center;
           }
-          .home-text07 {
+          .home-text09 {
             color: var(--dl-color-primary-300);
           }
           .home-example3c {
@@ -425,7 +471,7 @@ const Home = (props) => {
             flex-direction: row;
             justify-content: center;
           }
-          .home-text08 {
+          .home-text10 {
             color: var(--dl-color-primary-300);
           }
           .home-container12 {
@@ -435,6 +481,13 @@ const Home = (props) => {
             display: flex;
             align-items: flex-start;
             flex-direction: column;
+          }
+          .home-text11 {
+            color: var(--dl-color-primary-300);
+            margin-top: 0px;
+            margin-left: var(--dl-space-space-halfunit);
+            margin-right: var(--dl-space-space-halfunit);
+            margin-bottom: 0px;
           }
           .home-container13 {
             flex: 0 0 auto;
@@ -455,6 +508,64 @@ const Home = (props) => {
             display: flex;
             align-items: flex-start;
           }
+          .home-example4c {
+            flex: 0 0 auto;
+            width: 100%;
+            display: flex;
+            margin-top: var(--dl-space-space-twounits);
+            align-items: flex-start;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-bottom: var(--dl-space-space-twounits);
+            justify-content: flex-start;
+          }
+          .home-container15 {
+            flex: 0 0 auto;
+            width: 90%;
+            height: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+          }
+          .home-text13 {
+            color: var(--dl-color-primary-300);
+            align-self: flex-end;
+            margin-top: 0px;
+            margin-left: var(--dl-space-space-halfunit);
+            margin-right: var(--dl-space-space-halfunit);
+            margin-bottom: 0px;
+          }
+          .home-container16 {
+            flex: 0 0 auto;
+            width: 100%;
+            height: 25%;
+            display: flex;
+            align-items: flex-start;
+            padding-top: var(--dl-space-space-halfunit);
+            padding-left: var(--dl-space-space-unit);
+            padding-right: var(--dl-space-space-halfunit);
+            padding-bottom: var(--dl-space-space-halfunit);
+          }
+          .home-container17 {
+            flex: 0 0 auto;
+            width: 100%;
+            border: 2px dashed rgba(120, 120, 120, 0.4);
+            height: 75%;
+            display: flex;
+            align-items: flex-start;
+          }
+          .home-container18 {
+            flex: 0 0 auto;
+            width: 10%;
+            height: 25%;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: center;
+          }
+          .home-text15 {
+            color: var(--dl-color-primary-300);
+          }
           .home-footer {
             width: 100%;
             height: var(--dl-size-size-large);
@@ -470,7 +581,7 @@ const Home = (props) => {
             justify-content: space-between;
             background-color: var(--dl-color-primary-100);
           }
-          .home-container15 {
+          .home-container19 {
             flex: 0 0 auto;
             width: 40%;
             display: flex;
@@ -478,7 +589,7 @@ const Home = (props) => {
             flex-direction: column;
             justify-content: flex-start;
           }
-          .home-container16 {
+          .home-container20 {
             flex: 0 0 auto;
             width: 100%;
             height: 50%;
@@ -491,7 +602,7 @@ const Home = (props) => {
             height: 2.5rem;
             object-fit: cover;
           }
-          .home-text10 {
+          .home-text16 {
             color: var(--dl-color-primary-300);
             width: 237px;
             font-size: 15px;
@@ -501,7 +612,7 @@ const Home = (props) => {
             margin-left: var(--dl-space-space-halfunit);
             text-transform: capitalize;
           }
-          .home-text11 {
+          .home-text17 {
             font-size: 10px;
             margin-top: var(--dl-space-space-halfunit);
             font-family: 'Urbanist';
@@ -510,7 +621,7 @@ const Home = (props) => {
             text-transform: none;
             text-decoration: none;
           }
-          .home-text12 {
+          .home-text18 {
             font-size: 16px;
             align-self: flex-end;
             font-family: 'Urbanist';
@@ -518,7 +629,7 @@ const Home = (props) => {
             text-decoration: none;
           }
           @media (max-width: 991px) {
-            .home-text11 {
+            .home-text17 {
               font-size: 10px;
             }
           }
@@ -557,10 +668,10 @@ const Home = (props) => {
             .home-image2 {
               height: 3em;
             }
-            .home-text10 {
+            .home-text16 {
               font-size: 20px;
             }
-            .home-text11 {
+            .home-text17 {
               font-size: 10px;
             }
           }
@@ -593,16 +704,16 @@ const Home = (props) => {
               padding: var(--dl-space-space-unit);
               flex-direction: column;
             }
-            .home-container15 {
+            .home-container19 {
               width: 50%;
             }
-            .home-text10 {
+            .home-text16 {
               font-size: 14px;
             }
-            .home-text11 {
+            .home-text17 {
               font-size: 10px;
             }
-            .home-text12 {
+            .home-text18 {
               align-self: flex-end;
             }
           }
