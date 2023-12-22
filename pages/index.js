@@ -74,6 +74,7 @@ const Home = (props) => {
           </div>
           <div className="home-container04">
             <div className="home-container05">
+            
               <span>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -168,6 +169,9 @@ const Home = (props) => {
             padding-right: var(--dl-space-space-threeunits);
             padding-bottom: var(--dl-space-space-twounits);
             justify-content: space-between;
+            border-top-width: 0px;
+            border-left-width: 0px;
+            border-right-width: 0px;
           }
           .home-container01 {
             flex: 0 0 auto;
@@ -456,7 +460,7 @@ const Home = (props) => {
             width: 100%;
             height: var(--dl-size-size-large);
             display: flex;
-            max-width: var(--dl-size-size-maxwidth);
+            max-width: 100%;
             margin-top: auto;
             align-items: center;
             padding-top: var(--dl-space-space-twounits);
