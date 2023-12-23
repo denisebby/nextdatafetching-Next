@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import styles from '../css/server_fetch.module.css'; // This assumes you have a corresponding CSS file for styles
 
 
@@ -7,10 +7,8 @@ import styles from '../css/server_fetch.module.css'; // This assumes you have a 
 const DataDisplay = ({ data, timestamp, id_name }) => {
     const [Plot, setPlotly] = useState();
 
-    console.log(data)
 
     const ages = data.results.map(record => record.dob.age); // Adjust according to your data structure
-    console.log(ages)
 
 
     useEffect(() => {
@@ -23,19 +21,75 @@ const DataDisplay = ({ data, timestamp, id_name }) => {
 
     useEffect(() => {
         if (Plot && ages.length > 0) {
+
         const trace = [
             {
                 x: ages,
                 type: 'histogram',
+                marker: {
+                    color: "#ff6400ff", // Change histogram color
+                },
+                hoverinfo: 'x+y',
+                nbinsx: 20,
             }
         ]
-
-        const layout = {autosize: true, responsive: true, height: 300}
-   
+      
+        const layout = { height: "100%",
+        xaxis: {
+          title: 'Age', // X-axis label
+        },
+        yaxis: {
+          title: '# People', // Y-axis label
+        },
+        hovermode: 'closest'}
+        
         Plot.newPlot(id_name, trace, layout);
+   
         }
 
     }, [Plot, ages]);
+
+    // help with resizing plotly plot
+    useEffect(() => {
+        const handleResize = () => {
+    
+    
+          import('plotly.js/dist/plotly.min.js').then(Plotly => {
+
+
+            // Plotly.Plots.resize(document.getElementById('hist1'));
+            // in case we have more than 1 plot in this container
+            const plotIds = ['hist1'];
+
+            plotIds.forEach(id => {
+                const plotElement = document.getElementById(id);
+                if (plotElement) {
+                Plotly.Plots.resize(plotElement);
+         
+                }
+            });
+
+            
+          });
+    
+    
+          
+        };
+
+        handleResize();
+
+        // Initialize plot after window load to ensure styles are applied
+        // window.addEventListener('load', handleResize);
+      
+        // Resize the plot when the window is resized
+        window.addEventListener('resize', handleResize);
+      
+        // Return a clean-up function to remove the event listener
+        return () => {
+            // window.removeEventListener('load', handleResize);
+            window.removeEventListener('resize', handleResize);
+        };
+      }, []);
 
 
       

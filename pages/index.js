@@ -6,7 +6,7 @@ import DataDisplay from './ui/server_fetch/ServerFetch'; // Import your display 
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch('https://randomuser.me/api/?results=10');
+    const res = await fetch('https://randomuser.me/api/?results=100');
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
@@ -84,13 +84,7 @@ const Home = (props) => {
             <path d="M768 224l256-192v768l-256 192z"></path>
           </svg>
           <span className="home-text03">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum
+            I made this app to explore all the different ways to load data in a Next JS app. See github for the code.
           </span>
         </div>
         <div className="home-example1c">
@@ -104,10 +98,11 @@ const Home = (props) => {
             <div className="home-container05">
             
               <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. 
+                I used async function getServerSideProps(). In that function, 
+                I used await fetch("https://example-api.com/...") and I return props. 
+                The props are then passed into the main component 
+                and downstream components when necessary. On entry and on every refresh,
+                we hit the api and fetch data.
                 <br></br>
                 <br></br>
                 <br></br>
@@ -121,8 +116,6 @@ const Home = (props) => {
             </div>
             <div className="home-container06">
               <DataDisplay data={props.data} timestamp={props.timestamp} id_name={"hist1"}/>
-              <DataDisplay data={props.data} timestamp={props.timestamp} id_name={"hist2"}/>
-              <DataDisplay data={props.data} timestamp={props.timestamp} id_name={"hist3"}/>
             </div>
           </div>
         </div>
@@ -424,6 +417,7 @@ const Home = (props) => {
           }
 
           .home-container06 {
+            margin-top: var(--dl-space-space-twounits);
             flex: 0 0 auto;
             width: 100%;
             height: 75%;
