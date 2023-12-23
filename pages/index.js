@@ -4,9 +4,9 @@ import Head from 'next/head'
 import DataDisplay from './ui/server_fetch/ServerFetch'; // Import your display component
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
-    const res = await fetch('https://randomuser.me/api/?results=100');
+    const res = await fetch('https://randomuser.me/api/?results=100',);
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
@@ -83,9 +83,17 @@ const Home = (props) => {
             <path d="M384 32l320 192v736l-320-160z"></path>
             <path d="M768 224l256-192v768l-256 192z"></path>
           </svg>
-          <span className="home-text03">
+          <div className="home-text03">
             I made this app to explore all the different ways to load data in a Next JS app. See github for the code.
-          </span>
+            <br></br>
+            <br></br>
+            Notes:
+            <ul>
+              <li> With getStaticProps, for production build, it will not refetch data. 
+            It's fetched at build time and that's it. But there's more that can be done with revalidation.</li>
+              <li>With getServerSideProps, for production build, it refetches data. </li>
+            </ul>
+          </div>
         </div>
         <div className="home-example1c">
           <div className="home-container03">
@@ -97,12 +105,15 @@ const Home = (props) => {
             </h1>
             <div className="home-container05">
             
-              <span>
+              <div>
                 I used async function getServerSideProps(). In that function, 
                 I used await fetch("https://example-api.com/...") and I return props. 
                 The props are then passed into the main component 
                 and downstream components when necessary. On entry and on every refresh,
                 we hit the api and fetch data.
+                <br></br>
+                <br></br>
+                Everytime I hit refresh, new data is loaded from the api. 
                 <br></br>
                 <br></br>
                 <br></br>
@@ -112,10 +123,10 @@ const Home = (props) => {
                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat
                 nulla pariatur. Excepteur sint occaecat cupidatat non proident,
                 sunt in culpa qui officia deserunt mollit anim id est laborum
-              </span>
+              </div>
             </div>
             <div className="home-container06">
-              <DataDisplay data={props.data} timestamp={props.timestamp} id_name={"hist1"}/>
+              <DataDisplay id_name="hist1"/>
             </div>
           </div>
         </div>
@@ -135,7 +146,9 @@ const Home = (props) => {
                 sunt in culpa qui officia deserunt mollit anim id est laborum
               </span>
             </div>
-            <div className="home-container09"></div>
+            <div className="home-container09">
+              <DataDisplay data = {props.data} timestamp = {props.timestamp} id_name="hist2"/>
+            </div>
           </div>
           <div className="home-container10">
             <span className="home-text09 Heading">2</span>
@@ -204,6 +217,11 @@ const Home = (props) => {
       </div>
       <style jsx>
         {`
+          ul {
+            padding-left: 20px;
+            list-style-position: inside; /* This positions the bullets inside the content flow */
+          }
+
           .home-container {
             width: 100%;
             display: flex;
@@ -464,12 +482,12 @@ const Home = (props) => {
             padding-bottom: var(--dl-space-space-halfunit);
           }
           .home-container09 {
+            margin-top: var(--dl-space-space-twounits);
             flex: 0 0 auto;
             width: 100%;
-            border: 2px dashed rgba(120, 120, 120, 0.4);
             height: 75%;
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
           }
           .home-container10 {
             flex: 0 0 auto;

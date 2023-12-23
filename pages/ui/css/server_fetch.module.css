@@ -1,8 +1,8 @@
 .data_display {
   /* width: 100%;
   align-items: center;
-  justify-content: center;
-  border: 2px dashed green; */
+  justify-content: center; */
+  border: 2px dashed green; 
   text-align: left;
 }
 
@@ -18,7 +18,7 @@
 .data_display2 {
   margin: 0 auto; /* Centers the div in the container */
   text-align: center; /* If you have text in data_display2, this will center it */
-
+  border: 2px dashed red; 
   width: 75%; /* Example width */
   height: 400px; /* Increased height for larger screens */
 }
@@ -30,6 +30,7 @@
     margin: 0 auto; /* Centers the div in the container */
     text-align: center; /* If you have text in data_display2, this will center it */
     /* wider and shorter for less wide screens*/
+    border: 2px dashed red; 
     width: 90%; /* Example width */
     height: 300px; /* Default height for smaller screens */
 
