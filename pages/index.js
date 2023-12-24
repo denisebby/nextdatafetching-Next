@@ -95,10 +95,12 @@ const Home = (props) => {
               <li> With getStaticProps, for production build, it will not refetch data. 
             It's fetched at build time and that's it. But there's more that can be done with revalidation.</li>
               <li>getStaticProps always runs on the server and never on the client</li>
-              <li>Write server code directly in getStaticProps. Instead of fetching an API route 
-                from getStaticProps (that itself fetches data from an external source),
-                 you can write the server-side code directly in getStaticProps.</li>
-              <li>With getServerSideProps, for production build, it refetches data. </li>
+              <li>Write server code directly in getStaticProps and getServerSideProps. Instead of fetching an API route 
+                from them (that itself fetches data from an external source),
+                 you can write the server-side code directly in getStaticProps and getServerSideProps.</li>
+              <li>With getServerSideProps, for production build, it refetches data. 
+                It prebuilds the page on a (probably optimized, fast) server per request. </li>
+              <li>We cannot use getServerSideProps and getStaticProps on the same page.</li>
               <li>useEffect: Triggers a new data fetch from the client side after the component is re-mounted post-refresh.</li>
               <li>getServerSideProps: Triggers a new data fetch on the server side before the page is served to the client, making the latest data available immediately on page load.</li>
             </ul>
@@ -133,7 +135,7 @@ const Home = (props) => {
         <div className="home-example2c">
           <div className="home-container07">
             <h1 className="home-text07 Subheading">
-              getStaticProps
+              Server Side, getStaticProps
             </h1>
             <div className="home-container08">
               <span>

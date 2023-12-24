@@ -3,12 +3,19 @@ import Head from 'next/head'
 
 import Link from 'next/link';
 
-import DataDisplay from '../ui/server_fetch/ServerFetch'; // Import your display component
+import DataDisplay2 from '../ui/server_fetch_2/ServerFetch2'; // Import your display component
 
 
 export async function getServerSideProps() {
   try {
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+
+
     const res = await fetch('https://randomuser.me/api/?results=100',);
+
+
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
@@ -21,6 +28,7 @@ export async function getServerSideProps() {
     const easternTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
 
     return { props: { prop_data: prop_data, prop_timestamp: easternTime } };
+
   } catch (error) {
     // Handle errors as needed, possibly passing an error message in props
     return { props: { error: error.message } };
@@ -122,7 +130,7 @@ const Home2 = (props) => {
               </div>
             </div>
             <div className="home-container06">
-              <DataDisplay id_name="hist3"/>
+              <DataDisplay2 id_name="hist3"/>
             </div>
           </div>
         </div>
@@ -142,7 +150,7 @@ const Home2 = (props) => {
             </div>
             <div className="home-container06">
 
-              <DataDisplay prop_data = {props.prop_data} prop_timestamp = {props.prop_timestamp} id_name="hist4"/>
+              <DataDisplay2 prop_data = {props.prop_data} prop_timestamp = {props.prop_timestamp} id_name="hist4"/>
 
             </div>
           </div>
