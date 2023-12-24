@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '../css/server_fetch.module.css'; // This assumes you have a corresponding CSS file for styles
 
 
-const DataDisplay = ({ static_data, static_timestamp, id_name }) => {
+const DataDisplay = ({ prop_data, prop_timestamp, id_name }) => {
 
-    const [data, setData] = useState(static_data || null);
-    const [timestamp, setTimestamp] = useState(static_timestamp || null);
+    const [data, setData] = useState(prop_data || null);
+    const [timestamp, setTimestamp] = useState(prop_timestamp || null);
     const [error, setError] = useState('');
 
     const [Plot, setPlotly] = useState();
@@ -21,11 +21,11 @@ const DataDisplay = ({ static_data, static_timestamp, id_name }) => {
     useEffect(() => {
         // fetchData();
 
-        if (!static_data) {
+        if (!prop_data) {
             fetchData()
         }
 
-    }, [static_data]);
+    }, [prop_data]);
     
     const fetchData = async () => {
     try {
@@ -63,15 +63,7 @@ const DataDisplay = ({ static_data, static_timestamp, id_name }) => {
         // console.log(data.length > 0)
         console.log(plotContainerRef.current)
         // (Plot && data && data.length > 0 && plotContainerRef.current)
-        if (Plot && data) {
-
-            console.log("Denis: I'm plotting!")
-
-            console.log("Data:", data)
-
-            console.log("Data Length:", data.length)
-
-    
+        if (Plot && data && data.length > 0 && plotContainerRef.current) {
 
             const trace = [
                 {
@@ -139,9 +131,9 @@ const DataDisplay = ({ static_data, static_timestamp, id_name }) => {
         };
 
         // resize plot for initial render before any window resizing happens
-        // handleResize();
+        handleResize();
         // TODO: remove timeout
-        setTimeout(handleResize, 10000);
+        // setTimeout(handleResize, 10000);
       
         // Resize the plot when the window is resized
         window.addEventListener('resize', handleResize);

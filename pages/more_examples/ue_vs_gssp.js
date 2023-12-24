@@ -1,12 +1,12 @@
 import React from 'react'
 import Head from 'next/head'
+
 import Link from 'next/link';
 
+import DataDisplay from '../ui/server_fetch/ServerFetch'; // Import your display component
 
-import DataDisplay from './ui/server_fetch/ServerFetch'; // Import your display component
 
-
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const res = await fetch('https://randomuser.me/api/?results=100',);
 
@@ -28,7 +28,7 @@ export async function getStaticProps() {
 }
 
 
-const Home = (props) => {
+const Home2 = (props) => {
   // console.log(props)
   return (
     <>
@@ -90,18 +90,15 @@ const Home = (props) => {
             I made this app to explore all the different ways to load data in a Next JS app. See github for the code.
             <br></br>
             <br></br>
-            Notes:
-            <ul>
-              <li> With getStaticProps, for production build, it will not refetch data. 
-            It's fetched at build time and that's it. But there's more that can be done with revalidation.</li>
-              <li>getStaticProps always runs on the server and never on the client</li>
-              <li>Write server code directly in getStaticProps. Instead of fetching an API route 
-                from getStaticProps (that itself fetches data from an external source),
-                 you can write the server-side code directly in getStaticProps.</li>
-              <li>With getServerSideProps, for production build, it refetches data. </li>
-              <li>useEffect: Triggers a new data fetch from the client side after the component is re-mounted post-refresh.</li>
-              <li>getServerSideProps: Triggers a new data fetch on the server side before the page is served to the client, making the latest data available immediately on page load.</li>
-            </ul>
+            This page demonstrates the difference between useEffect and getServerSideProps.
+
+            <br></br>
+            <br></br>
+
+            <Link href="/" style={{ color: 'blue', textDecoration: 'underline' }}>
+                Go back to main page
+            </Link>
+
           </div>
         </div>
         <div className="home-example1c">
@@ -115,8 +112,7 @@ const Home = (props) => {
             <div className="home-container05">
             
               <div>
-                We use useEffect directly in the plot component. The data is fetched 
-                on the client side. On entry and on every refresh, 
+                We use useEffect. The data is fetched on the client side. On entry and on every refresh,
                 we hit the api and fetch data.
                 <br></br>
                 <br></br>
@@ -126,31 +122,8 @@ const Home = (props) => {
               </div>
             </div>
             <div className="home-container06">
-              <DataDisplay id_name="hist1"/>
+              <DataDisplay id_name="hist3"/>
             </div>
-          </div>
-        </div>
-        <div className="home-example2c">
-          <div className="home-container07">
-            <h1 className="home-text07 Subheading">
-              getStaticProps
-            </h1>
-            <div className="home-container08">
-              <span>
-              I used async function getServerSideProps(). In that function, 
-              I used await fetch("https://example-api.com/...") and I return props. 
-              The props are then passed into the main component 
-              and downstream components when necessary. 
-              The data is fetched at build time. So when we hit refresh, 
-              we don't attempt a refetch. The plot will not update. 
-              </span>
-            </div>
-            <div className="home-container09">
-              <DataDisplay prop_data = {props.prop_data} prop_timestamp = {props.prop_timestamp} id_name="hist2"/>
-            </div>
-          </div>
-          <div className="home-container10">
-            <span className="home-text09 Heading">2</span>
           </div>
         </div>
         <div className="home-example3c">
@@ -163,19 +136,15 @@ const Home = (props) => {
             </h1>
             <div className="home-container13">
               <span>
-                You can't use getServerSideProps and getStaticProps on the same page.
-                Since we already use getStaticProps for this main page in example 1, 
-                I made a new page that uses getServerSideProps.
-
-                <br></br>
-                <br></br>
-
-                <Link href="/more_examples/ue_vs_gssp" style={{ color: 'blue', textDecoration: 'underline' }}>
-                  See example
-                </Link>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </span>
             </div>
-            <div className="home-container14"></div>
+            <div className="home-container06">
+
+              <DataDisplay prop_data = {props.prop_data} prop_timestamp = {props.prop_timestamp} id_name="hist4"/>
+
+            </div>
           </div>
         </div>
         <div className="home-example4c">
@@ -775,4 +744,4 @@ const Home = (props) => {
   )
 }
 
-export default Home
+export default Home2;
