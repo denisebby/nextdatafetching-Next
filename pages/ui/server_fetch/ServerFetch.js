@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '../css/server_fetch.module.css'; // This assumes you have a corresponding CSS file for styles
 
 
-const DataDisplay = ({ initialData, initialTimestamp, id_name }) => {
+const DataDisplay = ({ static_data, static_timestamp, id_name }) => {
 
-    const [data, setData] = useState(initialData || null);
-    const [timestamp, setTimestamp] = useState(initialTimestamp || null);
+    const [data, setData] = useState(static_data || null);
+    const [timestamp, setTimestamp] = useState(static_timestamp || null);
     const [error, setError] = useState('');
 
     const [Plot, setPlotly] = useState();
@@ -21,11 +21,11 @@ const DataDisplay = ({ initialData, initialTimestamp, id_name }) => {
     useEffect(() => {
         // fetchData();
 
-        if (!initialData) {
+        if (!static_data) {
             fetchData()
         }
 
-    }, [initialData]);
+    }, [static_data]);
     
     const fetchData = async () => {
     try {
@@ -57,7 +57,21 @@ const DataDisplay = ({ initialData, initialTimestamp, id_name }) => {
     }, []);
 
     useEffect(() => {
-        if (Plot && data && data.length > 0 && plotContainerRef.current) {
+        console.log("Denis: here we go, in useEffect...")
+        console.log(Plot)
+        console.log(data)
+        // console.log(data.length > 0)
+        console.log(plotContainerRef.current)
+        // (Plot && data && data.length > 0 && plotContainerRef.current)
+        if (Plot && data) {
+
+            console.log("Denis: I'm plotting!")
+
+            console.log("Data:", data)
+
+            console.log("Data Length:", data.length)
+
+    
 
             const trace = [
                 {
@@ -71,27 +85,38 @@ const DataDisplay = ({ initialData, initialTimestamp, id_name }) => {
                 }
             ]
         
-            const layout = { height: "100%",
-            responsive: 'true',
-            autosize: 'true',
-            xaxis: {
-            title: 'Age', // X-axis label
-            },
-            yaxis: {
-            title: '# People', // Y-axis label
-            },
-            hovermode: 'closest'}
-        
-            Plot.newPlot(id_name, trace, layout);
-            // This technically works but issue is you can still
-            // see bleeding plot flash for a second before correct resized one
-            // Plot.newPlot(id_name, trace, layout).then(() => {
-            //     Plot.Plots.resize(plotContainerRef.current);
-            // });
+            // const layout = { height: "100%",
+            // responsive: 'true',
+            // autosize: 'true',
+            // xaxis: {
+            // title: 'Age', // X-axis label
+            // },
+            // yaxis: {
+            // title: '# People', // Y-axis label
+            // },
+            // hovermode: 'closest'}
 
-            Plot.Plots.resize(plotContainerRef.current).then(() => {
-                Plot.newPlot(id_name, trace, layout);
+            const layout = { height: 0,
+                xaxis: {
+                title: 'Age', // X-axis label
+                },
+                yaxis: {
+                title: '# People', // Y-axis label
+                },
+                hovermode: 'closest'
+            }
+        
+            // Plot.newPlot(id_name, trace, layout);
+            // This technically works but issue is you can still
+            // Setting height initially to 0 pixels makes it 
+            //  so container doesn't bleed over
+            Plot.newPlot(id_name, trace, layout).then(() => {
+                Plot.Plots.resize(plotContainerRef.current);
             });
+
+            // Plot.Plots.resize(plotContainerRef.current).then(() => {
+            //     Plot.newPlot(id_name, trace, layout);
+            // });
    
         }
 
@@ -105,7 +130,7 @@ const DataDisplay = ({ initialData, initialTimestamp, id_name }) => {
 
             const plotElements = document.querySelectorAll(".plotly_plot");
 
-            console.log('Found plot elements:', plotElements);
+            // console.log('Found plot elements:', plotElements);
 
             plotElements.forEach(plotElement => {
                 Plotly.Plots.resize(plotElement);

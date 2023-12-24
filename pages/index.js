@@ -12,12 +12,13 @@ export async function getStaticProps() {
       throw new Error('Failed to fetch data');
     }
 
-    const data = await res.json();
+    const jsonData = await res.json();
+    const static_data = jsonData.results.map(record => record.dob.age);
 
     // Generating a timestamp in Eastern Time
     const easternTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
 
-    return { props: { data, timestamp: easternTime } };
+    return { props: { static_data: static_data, static_timestamp: easternTime } };
   } catch (error) {
     // Handle errors as needed, possibly passing an error message in props
     return { props: { error: error.message } };
@@ -91,7 +92,13 @@ const Home = (props) => {
             <ul>
               <li> With getStaticProps, for production build, it will not refetch data. 
             It's fetched at build time and that's it. But there's more that can be done with revalidation.</li>
+              <li>getStaticProps always runs on the server and never on the client</li>
+              <li>Write server code directly in getStaticProps. Instead of fetching an API route 
+                from getStaticProps (that itself fetches data from an external source),
+                 you can write the server-side code directly in getStaticProps.</li>
               <li>With getServerSideProps, for production build, it refetches data. </li>
+              <li>useEffect: Triggers a new data fetch from the client side after the component is re-mounted post-refresh.</li>
+              <li>getServerSideProps: Triggers a new data fetch on the server side before the page is served to the client, making the latest data available immediately on page load.</li>
             </ul>
           </div>
         </div>
@@ -101,7 +108,7 @@ const Home = (props) => {
           </div>
           <div className="home-container04">
             <h1 className="home-text05 Subheading">
-              On the Server, with Fetch
+              Client Side, useEffect
             </h1>
             <div className="home-container05">
             
@@ -133,7 +140,7 @@ const Home = (props) => {
         <div className="home-example2c">
           <div className="home-container07">
             <h1 className="home-text07 Subheading">
-              On the Server, with 3rd party libraries
+              getStaticProps and pass through props
             </h1>
             <div className="home-container08">
               <span>
@@ -147,7 +154,7 @@ const Home = (props) => {
               </span>
             </div>
             <div className="home-container09">
-              <DataDisplay data = {props.data} timestamp = {props.timestamp} id_name="hist2"/>
+              <DataDisplay static_data = {props.static_data} static_timestamp = {props.static_timestamp} id_name="hist2"/>
             </div>
           </div>
           <div className="home-container10">
