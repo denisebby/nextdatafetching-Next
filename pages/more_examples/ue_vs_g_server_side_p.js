@@ -1,13 +1,43 @@
 import React from 'react'
 import Head from 'next/head'
+
 import Link from 'next/link';
 
+import DataDisplay2 from '../ui/server_fetch_2/ServerFetch2'; // Import your display component
 
-import DataDisplay from './ui/server_fetch/ServerFetch'; // Import your display component
+
+export async function getServerSideProps() {
+  try {
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
 
 
-const Home = () => {
 
+    const res = await fetch('https://randomuser.me/api/?results=100',);
+
+
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    const jsonData = await res.json();
+    const prop_data = jsonData.results.map(record => record.dob.age);
+
+    // Generating a timestamp in Eastern Time
+    const easternTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+
+    return { props: { prop_data: prop_data, prop_timestamp: easternTime } };
+
+  } catch (error) {
+    // Handle errors as needed, possibly passing an error message in props
+    return { props: { error: error.message } };
+  }
+}
+
+
+const Home2 = (props) => {
+  // console.log(props)
   return (
     <>
       <div className="home-container">
@@ -68,33 +98,15 @@ const Home = () => {
             I made this app to explore all the different ways to load data in a Next JS app. See github for the code.
             <br></br>
             <br></br>
-            Notes:
-            <ul>
-              <li> With getStaticProps, for production build, it will not refetch data. 
-            It's fetched at build time and that's it. But there's more that can be done with revalidation.
-            getServerSideProps fetches per request.</li>
-              <li>getStaticProps always runs on the server and never on the client</li>
-              <li>Incremental static regeneration (ISR); add revalidate</li>
-              <li>Write server code directly in getStaticProps and getServerSideProps. Instead of fetching an API route 
-                from them (that itself fetches data from an external source),
-                 you can write the server-side code directly in getStaticProps and getServerSideProps.</li>
-              <li>With getServerSideProps, for production build, it refetches data. 
-                It prebuilds the page on a (probably optimized, fast) server per request.
-                Triggers a new data fetch on the server side before the page is served to the client,
-                 making the latest data available immediately on page load </li>
-              <li>We cannot use getServerSideProps and getStaticProps on the same page.</li>
-              <li>useEffect: Triggers a new data fetch from the client side after the component is re-mounted post-refresh.</li>
-                <li>Static Site Generation (next 12) is Static Rendering (Next 13) (both are default)</li>
-                <li>Server Side Rendering is Dynamic Rendering</li>
-                <li>If NextJS detects uncached data or dynamic functions (like cookies(), headers(), or useSearchParams())
-                  , then it uses dynamic rendering</li>
-                <li>Server Components: Components are server components by default. Better for performance. </li>
-                <li>For interactivity, use client componenets. They prerender on the server
-                   but hydrated on the client. Only fully render on the client.</li>
-                <li>Server components prerender just that component on the server at build time. 
-                  Dyamic rendering renders an entire route on the server at request time. </li>
-              
-            </ul>
+            This page demonstrates the difference between useEffect and getServerSideProps.
+
+            <br></br>
+            <br></br>
+
+            <Link href="/" style={{ color: 'blue', textDecoration: 'underline' }}>
+                Go back to main page
+            </Link>
+
           </div>
         </div>
         <div className="home-example1c">
@@ -103,54 +115,28 @@ const Home = () => {
           </div>
           <div className="home-container04">
             <h1 className="home-text05 Subheading">
-              getStaticProps
+              Client Side, useEffect
             </h1>
             <div className="home-container05">
             
               <div>
-              We can't use getServerSideProps and getStaticProps on the same page.
-                I made a new page that uses getStaticProps.
+                We use useEffect. The data is fetched on the client side. On entry and on every refresh,
+                we hit the api and fetch data.
                 <br></br>
                 <br></br>
-
-                <Link href="/more_examples/ue_vs_g_static_p" style={{ color: 'blue', textDecoration: 'underline' }}>
-                  See how getStaticProps works...
-                </Link>
-
+                Everytime I hit refresh, new data is loaded from the api. 
+                <br></br>
+                <br></br>
               </div>
             </div>
             <div className="home-container06">
+              <DataDisplay2 id_name="hist3"/>
             </div>
-          </div>
-        </div>
-        <div className="home-example2c">
-          <div className="home-container07">
-            <h1 className="home-text07 Subheading">
-              getServerSideProps
-            </h1>
-            <div className="home-container08">
-              <span>
-                See demo of getServerSideProps here:
-                <br></br>
-                <br></br>
-
-                <Link href="/more_examples/ue_vs_g_server_side_p" style={{ color: 'blue', textDecoration: 'underline' }}>
-                  See how getServerSideProps works...
-                </Link>
-
-
-              </span>
-            </div>
-            <div className="home-container09">
-            </div>
-          </div>
-          <div className="home-container10">
-            <span className="home-text09 Heading">2</span>
           </div>
         </div>
         <div className="home-example3c">
           <div className="home-container11">
-            <span className="home-text10 Heading">3</span>
+            <span className="home-text10 Heading">2</span>
           </div>
           <div className="home-container12">
             <h1 className="home-text11 Subheading">
@@ -158,40 +144,15 @@ const Home = () => {
             </h1>
             <div className="home-container13">
               <span>
-                We can't use getServerSideProps and getStaticProps on the same page.
-                I made a new page that uses getServerSideProps.
-
-                <br></br>
-                <br></br>
-
-                <Link href="/more_examples/ue_vs_gssp" style={{ color: 'blue', textDecoration: 'underline' }}>
-                  See example
-                </Link>
-              </span>
-            </div>
-            <div className="home-container14"></div>
-          </div>
-        </div>
-        <div className="home-example4c">
-          <div className="home-container15">
-            <h1 className="home-text13 Subheading">
-              On the Client, with 3rd party libraries
-            </h1>
-            <div className="home-container16">
-              <span>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </span>
             </div>
-            <div className="home-container17"></div>
-          </div>
-          <div className="home-container18">
-            <span className="home-text15 Heading">4</span>
+            <div className="home-container06">
+
+              <DataDisplay2 prop_data = {props.prop_data} prop_timestamp = {props.prop_timestamp} id_name="hist4"/>
+
+            </div>
           </div>
         </div>
         <footer className="home-footer">
@@ -769,4 +730,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default Home2;

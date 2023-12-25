@@ -1,0 +1,1 @@
+I included timeout in this component

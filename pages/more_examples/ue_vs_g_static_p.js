@@ -1,21 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
-
 import Link from 'next/link';
 
-import DataDisplay2 from '../ui/server_fetch_2/ServerFetch2'; // Import your display component
+
+import DataDisplay from '../ui/server_fetch/ServerFetch'; // Import your display component
 
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
-
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
-
-
     const res = await fetch('https://randomuser.me/api/?results=100',);
-
-
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
@@ -28,7 +21,6 @@ export async function getServerSideProps() {
     const easternTime = new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
 
     return { props: { prop_data: prop_data, prop_timestamp: easternTime } };
-
   } catch (error) {
     // Handle errors as needed, possibly passing an error message in props
     return { props: { error: error.message } };
@@ -36,7 +28,7 @@ export async function getServerSideProps() {
 }
 
 
-const Home2 = (props) => {
+const Home = (props) => {
   // console.log(props)
   return (
     <>
@@ -98,15 +90,9 @@ const Home2 = (props) => {
             I made this app to explore all the different ways to load data in a Next JS app. See github for the code.
             <br></br>
             <br></br>
-            This page demonstrates the difference between useEffect and getServerSideProps.
-
-            <br></br>
-            <br></br>
-
             <Link href="/" style={{ color: 'blue', textDecoration: 'underline' }}>
                 Go back to main page
             </Link>
-
           </div>
         </div>
         <div className="home-example1c">
@@ -120,7 +106,8 @@ const Home2 = (props) => {
             <div className="home-container05">
             
               <div>
-                We use useEffect. The data is fetched on the client side. On entry and on every refresh,
+                We use useEffect directly in the plot component. The data is fetched 
+                on the client side. On entry and on every refresh, 
                 we hit the api and fetch data.
                 <br></br>
                 <br></br>
@@ -130,53 +117,37 @@ const Home2 = (props) => {
               </div>
             </div>
             <div className="home-container06">
-              <DataDisplay2 id_name="hist3"/>
+              <DataDisplay id_name="hist1"/>
             </div>
           </div>
         </div>
-        <div className="home-example3c">
-          <div className="home-container11">
-            <span className="home-text10 Heading">3</span>
+
+        <div className="home-example1c">
+          <div className="home-container03">
+            <span className="home-text04 Heading">2</span>
           </div>
-          <div className="home-container12">
-            <h1 className="home-text11 Subheading">
-              getServerSideProps
+          <div className="home-container04">
+            <h1 className="home-text05 Subheading">
+            getStaticProps
             </h1>
-            <div className="home-container13">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <div className="home-container05">
+            
+            <span>
+              I used async function getStaticProps(). In that function, 
+              I used await fetch("https://example-api.com/...") and I return props. 
+              The props are then passed into the main component 
+              and downstream components when necessary. 
+              The data is fetched at build time. So when we hit refresh, 
+              we don't attempt a refetch. The plot will not update. 
               </span>
             </div>
             <div className="home-container06">
-
-              <DataDisplay2 prop_data = {props.prop_data} prop_timestamp = {props.prop_timestamp} id_name="hist4"/>
-
+            <DataDisplay prop_data = {props.prop_data} prop_timestamp = {props.prop_timestamp} id_name="hist2"/>
             </div>
           </div>
         </div>
-        <div className="home-example4c">
-          <div className="home-container15">
-            <h1 className="home-text13 Subheading">
-              On the Client, with 3rd party libraries
-            </h1>
-            <div className="home-container16">
-              <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum
-              </span>
-            </div>
-            <div className="home-container17"></div>
-          </div>
-          <div className="home-container18">
-            <span className="home-text15 Heading">4</span>
-          </div>
-        </div>
+
+
         <footer className="home-footer">
           <div className="home-container19">
             <div className="home-container20">
@@ -752,4 +723,4 @@ const Home2 = (props) => {
   )
 }
 
-export default Home2;
+export default Home
